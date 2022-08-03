@@ -13,7 +13,7 @@ using System.Diagnostics;
 //     - aggregation methods ✅
 //     - quantifiers ✅
 //     - generation methods ✅
-// 2. Use closures 
+// 2. Use closures ✅
 
 namespace App
 {
