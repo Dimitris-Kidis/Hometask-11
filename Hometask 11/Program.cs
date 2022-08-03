@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 // 1. Create one or more sequences and use one operator of each type:
 //     - filtering ✅
@@ -18,7 +19,7 @@ namespace App
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args) 
         {
 
             // Declaring Sequences
@@ -217,9 +218,49 @@ namespace App
 
             // Generation Methods
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n----- Create 10 Students & take the oldest 3 -----");
             var newRandomList = Enumerable.Repeat(new Student { ID = new Random().Next(0, 100), Age = new Random().Next(18, 24) }, 10);
-            
+
+
+            //---------------------------------------------------------------------
+            Action[] actions = new Action[2];
+
+            int outside = 2;
+            for (int i = 0; i < 2; i++)
+            {
+                int inside = 0;
+
+                actions[i] = () =>
+                {
+                    Debug.WriteLine($"Outside = {outside}, Inside = {inside}");
+                    outside++;
+                    inside++;
+                    // Делегаты шерят outside, но inside у каждого свой
+                    // Дело в scope, т.к. outside находится на уровень выше
+                };
+            }
+            Action firstAction = actions[0];
+            Action secondAction = actions[1];
+
+            firstAction();
+            firstAction();
+            secondAction();
+            secondAction();
+            //---------------------------------------------------------------------
+
+            var inc = GetAFunc();
+            Console.WriteLine(inc(5));
+            Console.WriteLine(inc(6));
+        }
+
+        public static Func<int, int> GetAFunc()
+        {
+            var myVar = 1;
+            Func<int, int> inc = delegate(int var1)
+                                    {
+                                        myVar = myVar + 1;
+                                        return var1 + myVar;
+                                    };
+            return inc;
         }
     }
 
