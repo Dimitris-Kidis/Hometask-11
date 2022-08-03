@@ -234,8 +234,6 @@ namespace App
                     Debug.WriteLine($"Outside = {outside}, Inside = {inside}");
                     outside++;
                     inside++;
-                    // Делегаты шерят outside, но inside у каждого свой
-                    // Дело в scope, т.к. outside находится на уровень выше
                 };
             }
             Action firstAction = actions[0];
